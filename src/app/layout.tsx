@@ -16,7 +16,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className="w-full bg-black px-12 py-4 flex flex-row justify-between">
+          <h1 className="text-xl text-white font-semibold tracking-tight">
+            <span className="text-blue-500">Wind</span>
+            Press
+          </h1>
+        </header>
+
+        {children}
+      </body>
     </html>
   );
 }
