@@ -2,80 +2,80 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  name         String
-  email        String         @unique
-  password     String
-  ProjectUsers ProjectUsers[]
-  TaskAssignee Task[]         @relation("TaskAssignee")
-  TaskCreator  Task[]         @relation("TaskCreator")
-  Comment      Comment[]
+    id           Int            @id @default(autoincrement())
+    name         String
+    email        String         @unique
+    password     String
+    ProjectUsers ProjectUsers[]
+    TaskAssignee Task[]         @relation("TaskAssignee")
+    TaskCreator  Task[]         @relation("TaskCreator")
+    Comment      Comment[]
 }
 
 model Project {
-  id           Int            @id @default(autoincrement())
-  name         String
-  description  String?
-  ProjectUsers ProjectUsers[]
-  Boards       Board[]
+    id           Int            @id @default(autoincrement())
+    name         String
+    description  String?
+    ProjectUsers ProjectUsers[]
+    Boards       Board[]
 }
 
 model ProjectUsers {
-  id        Int     @id @default(autoincrement())
-  userId    Int
-  projectId Int
-  user      User    @relation(fields: [userId], references: [id])
-  project   Project @relation(fields: [projectId], references: [id])
+    id        Int     @id @default(autoincrement())
+    userId    Int
+    projectId Int
+    user      User    @relation(fields: [userId], references: [id])
+    project   Project @relation(fields: [projectId], references: [id])
 }
 
 model Board {
-  id        Int     @id @default(autoincrement())
-  name      String
-  projectId Int
-  project   Project @relation(fields: [projectId], references: [id])
-  Task      Task[]
+    id        Int     @id @default(autoincrement())
+    name      String
+    projectId Int
+    project   Project @relation(fields: [projectId], references: [id])
+    Task      Task[]
 }
 
 enum Priority {
-  LOW
-  MEDIUM
-  HIGH
+    LOW
+    MEDIUM
+    HIGH
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?
-  priority    Priority  @default(LOW)
-  boardId     Int
-  board       Board     @relation(fields: [boardId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
-  assigneeId  Int?
-  assignee    User?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
-  creatorId   Int
-  creator     User      @relation("TaskCreator", fields: [creatorId], references: [id])
-  comments    Comment[]
+    id          Int       @id @default(autoincrement())
+    name        String
+    description String?
+    priority    Priority  @default(LOW)
+    boardId     Int
+    board       Board     @relation(fields: [boardId], references: [id])
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    deletedAt   DateTime?
+    assigneeId  Int?
+    assignee    User?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+    creatorId   Int
+    creator     User      @relation("TaskCreator", fields: [creatorId], references: [id])
+    comments    Comment[]
 }
 
 model Comment {
-  id        Int       @id @default(autoincrement())
-  content   String
-  taskId    Int
-  task      Task      @relation(fields: [taskId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  creatorId Int
-  creator   User      @relation(fields: [creatorId], references: [id])
+    id        Int       @id @default(autoincrement())
+    content   String
+    taskId    Int
+    task      Task      @relation(fields: [taskId], references: [id])
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    creatorId Int
+    creator   User      @relation(fields: [creatorId], references: [id])
 }
