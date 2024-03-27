@@ -17,14 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="w-full bg-black px-12 py-4 flex flex-row justify-between">
-          <h1 className="text-xl text-white font-semibold tracking-tight">
+        <header className="fixed top-0 left-0 right-0 z-50 w-full px-12 py-4 bg-black/30 backdrop-blur">
+          <h1 className="text-xl text-white font-bold tracking-tight">
             <span className="text-blue-500">Wind</span>
             Press
           </h1>
         </header>
-
-        {children}
+        <main className="text-white pt-20 px-12">{children}</main>
       </body>
     </html>
   );
